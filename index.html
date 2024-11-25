@@ -22,53 +22,28 @@
                 <button type="button" onclick="uploadFile()">Upload</button>
             </form>
         </div>
-        <script>
-            function uploadFile() {
-                const fileInput = document.getElementById('fileInput');
-                const file = fileInput.files[0];
-                const formData = new FormData();
-                formData.append('file', file);
-    
-                fetch('/upload', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        </script>
         <div class="cerebrumImg">
             <img class="val0"src="brain.png">
             <div class="main">
                 <canvas id="myCanvas"></canvas>
                     <script>
-                        function readFile() {
+                        function uploadFile() {
                             const fileInput = document.getElementById('fileInput');
                             const file = fileInput.files[0];
-                            const reader = new FileReader();
-
-                            reader.onload = function(event) {
-                                const fileContent = event.target.result;
-                                console.log('File content:', fileContent);
-                                // Here you can process the file content as needed
-                                alert('File uploaded successfully!');
-                            };
-
-                            reader.onerror = function(event) {
-                                console.error('Error reading file:', event.target.error);
-                                alert('Error reading file');
-                            };
-
-                            if (file) {
-                                reader.readAsText(file);
-                            } else {
-                                alert('No file selected');
-                            }
+                            const formData = new FormData();
+                            formData.append('file', file);
+                
+                            fetch('/upload', {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Success:', data);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
                         }
                         const canvas = document.getElementById('myCanvas');
                         const ctx = canvas.getContext('2d');
